@@ -6,14 +6,15 @@ namespace RuleExpression
     {
         public static void Main(string[] args)
         {
-            string expression = "(8+4)/2";
+            string expression = "((8+4)/2)+(25*2/2-1)";
+            
 
             if (!Validation.IsParenthesesValid(expression))
             {
                 Console.WriteLine("Parantezlerde sorun var, duzelt tekrar dene");
             }
 
-            bool result = Operation.Calculate(expression, 6);
+            int result = Operation.Calculate(expression);
 
             Console.WriteLine(result);
             Console.ReadLine();

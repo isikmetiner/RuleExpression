@@ -4,7 +4,7 @@ namespace RuleExpression
 {
     public static class Operation
     {
-        public static bool Calculate(string expression, int expectedValue)
+        public static int Calculate(string expression)
         {
             Stack<int> values = new Stack<int>();
             Stack<char> operators = new Stack<char>();
@@ -24,6 +24,7 @@ namespace RuleExpression
 
                     values.Push(num);
                 }
+
                 else if (expression[i] == '+' || expression[i] == '-' || expression[i] == '*' || expression[i] == '/')
                 {
                     while (operators.Count > 0 && HasPrecedence(expression[i], operators.Peek()))
@@ -33,10 +34,12 @@ namespace RuleExpression
 
                     operators.Push(expression[i]);
                 }
+
                 else if (expression[i] == '(')
                 {
                     operators.Push(expression[i]);
                 }
+
                 else if (expression[i] == ')')
                 {
                     while (operators.Peek() != '(')
@@ -55,7 +58,7 @@ namespace RuleExpression
 
             int result = values.Pop();
 
-            return result == expectedValue;
+            return result;
         }
 
         private static bool HasPrecedence(char operatorFirst, char operatorSecond)
@@ -64,10 +67,12 @@ namespace RuleExpression
             {
                 return false;
             }
+
             if ((operatorFirst == '*' || operatorFirst == '/') && (operatorSecond == '+' || operatorSecond == '-'))
             {
                 return false;
             }
+
             return true;
         }
 
@@ -84,6 +89,7 @@ namespace RuleExpression
                 case '/':
                     return a / b;
             }
+
             return 0;
         }
     }
